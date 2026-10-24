@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>FirstPatch — Open-Source Issue Finder</title>
+  <meta name="description" content="Find beginner-friendly, ready-to-work open source issues that match your skills, with clear explanations of why each fits." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cb593f'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <!-- TOP NAVIGATION BAR -->
+    <header class="topbar">
+      <a href="/" class="brand" aria-label="FirstPatch home" data-testid="link-home">
+        <span class="brand-mark">
+          <!-- Terracotta mark with branch/patch icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="3" x2="6" y2="15"></line>
+            <circle cx="18" cy="6" r="3"></circle>
+            <circle cx="6" cy="18" r="3"></circle>
+            <path d="M18 9a9 9 0 0 1-9 9"></path>
+          </svg>
+        </span>
+        <span>firstpatch</span>
+      </a>
+
+      <div class="topbar-actions">
+        <span class="top-note">A good first step, found.</span>
+        <button id="button-toggle-demo" class="header-btn" title="Toggle between Live GitHub Search and Curated Demo dataset">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+          </svg>
+          Demo Mode: OFF
+        </button>
+        <button id="button-open-settings" class="header-btn" title="Configure GitHub API Token (5,000 req/hr)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          API Settings
+        </button>
+      </div>
+    </header>
+
+    <div class="page">
+      <!-- HERO HEADER -->
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Your open-source starting point</div>
+          <h1>Find your first<br>good issue.</h1>
+          <p class="hero-copy">
+            A thoughtful shortlist, not another issue firehose. Tell us what you know, and we’ll show you open issues with clear reasons they might fit.
+          </p>
+        </div>
+        <div class="hero-index">
+          <strong>01 / 03</strong>
+          Pick what you know<br>
+          Browse work that fits<br>
+          Make your first patch
+        </div>
+      </section>
+
+      <!-- TWO-COLUMN WORKSPACE -->
+      <div class="finder-layout">
+        <!-- LEFT FILTERS PANEL -->
+        <aside class="panel filters" aria-label="Search preferences">
+          <h2 class="panel-title">Your starting point</h2>
+          <p class="panel-sub">No perfect profile needed. Manual skills work on their own.</p>
+
+          <label class="field-label" for="github-username">
+            GitHub username <span>· optional</span>
+          </label>
+          <div class="username-wrap">
+            <span>@</span>
+            <input
+              id="github-username"
+              class="text-input"
+              type="text"
+              placeholder="your-handle"
+              autocomplete="off"
+              spellcheck="false"
+              data-testid="input-github-username"
+            />
+          </div>
+          <p class="field-hint">We’ll read public repository languages only. No sign-in.</p>
+
+          <label class="field-label">Skills & languages</label>
+          <div id="skills-container" class="skills" aria-label="Choose your skills"></div>
+
+          <form id="skill-add-form" class="skill-add">
+            <input
+              id="input-custom-skill"
+              class="text-input"
+              type="text"
+              placeholder="Add another skill"
+              aria-label="Add a custom skill"
+              data-testid="input-custom-skill"
+            />
+            <button
+              id="button-add-skill"
+              class="mini-button"
+              type="submit"
+              aria-label="Add skill"
+              data-testid="button-add-skill"
+            >
+              +
+            </button>
+          </form>
+
+          <div class="divider"></div>
+
+          <label class="field-label">What kind of work?</label>
+          <div id="categories-container" class="category-grid"></div>
+
+          <label class="check-row">
+            <input id="checkbox-fresh-only" type="checkbox" data-testid="checkbox-fresh-only" />
+            Updated in the last 30 days
+          </label>
+
+          <button
+            id="button-find-issues"
+            class="search-button"
+            type="button"
+            data-testid="button-find-issues"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            Find my first issue
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </aside>
+
+        <!-- RIGHT RESULTS SECTION -->
+        <section class="results-column" aria-label="Issue results">
+          <div class="results-head">
+            <div>
+              <h2 id="results-title" class="results-title">A better place to begin</h2>
+              <p id="results-count" class="results-sub" data-testid="text-results-count">
+                Live, open issues with useful context.
+              </p>
+            </div>
+            <div class="results-tools">
+              <span id="source-pill" class="source-pill" style="display:none;" data-testid="status-live-results">
+                <i class="source-dot"></i>
+                <span id="source-text">LIVE FROM GITHUB</span>
+              </span>
+
+              <label for="sort-results" class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Sort results</label>
+              <select id="sort-results" class="sort-select" data-testid="select-sort-results">
+                <option value="match">Best match</option>
+                <option value="recent">Recently updated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- NOTICES & AUDIT -->
+          <div id="profile-note" class="notice" role="status" style="display:none;" data-testid="status-profile-note"></div>
+
+          <div id="search-error" class="notice error" role="alert" style="display:none;" data-testid="status-search-error">
+            <span id="error-message"></span>
+            <div class="notice-actions">
+              <button id="button-retry-search" class="notice-action-btn" type="button" data-testid="button-retry-search">Try again</button>
+              <button id="button-demo-switch" class="notice-action-btn" type="button">Switch to Demo Mode (Curated Issues)</button>
+            </div>
+          </div>
+
+          <!-- QUALITY GATE BAR -->
+          <div id="quality-gate-bar" class="quality-gate-bar" style="display:none;">
+            <span id="quality-stat-text" class="quality-stat"></span>
+            <button id="button-view-rejected" class="quality-view-btn" type="button">
+              View Rejection Audit
+            </button>
+          </div>
+
+          <!-- LOADING SKELETON -->
+          <div id="status-loading" class="issue-list" style="display:none;" aria-label="Loading issues" data-testid="status-loading-issues">
+            <div class="loading-card"></div>
+            <div class="loading-card"></div>
+          </div>
+
+          <!-- WELCOME STATE -->
+          <div id="status-welcome" class="empty" data-testid="status-welcome">
+            <div class="empty-mark">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 16v-4"></path>
+                <path d="M12 8h.01"></path>
+              </svg>
+            </div>
+            <h3>Start with what you already know.</h3>
+            <p>Pick a language or skill, add a GitHub username if you like, then we’ll surface open issues and explain what makes each one worth a look.</p>
+          </div>
+
+          <!-- NO RESULTS STATE -->
+          <div id="status-no-results" class="empty" style="display:none;" data-testid="status-no-results">
+            <div class="empty-mark">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3>No issues in this mix, just yet.</h3>
+            <p>Try broadening your categories or turning off the recent-update filter. The issue feed is live, so results can change.</p>
+            <button id="button-clear-filters" type="button" data-testid="button-clear-filters">
+              Show all open issues
+            </button>
+          </div>
+
+          <!-- CARDS CONTAINER -->
+          <div id="issue-list" class="issue-list" style="display:none;" data-testid="list-issues"></div>
+
+          <!-- SHOW MORE BUTTON -->
+          <button id="button-show-more" class="show-more-btn" type="button" style="display:none;" data-testid="button-show-more-issues">
+            Show 12 more
+          </button>
+
+          <!-- FOOTNOTE -->
+          <p class="footnote" data-testid="text-source-note">
+            Readiness is a quick signal, not a promise. We only use visible issue fields—status, assignees, update date, and labels. Always read the project’s contribution guide before you start.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- FIRST PR ROADMAP MODAL -->
+  <div id="roadmap-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="roadmap-title">
+    <div class="modal">
+      <button id="roadmap-modal-close" class="modal-close" aria-label="Close modal">&times;</button>
+      <h2 id="roadmap-title" class="modal-title">Your First PR Roadmap</h2>
+      <p id="roadmap-issue-title" class="modal-sub"></p>
+
+      <div class="roadmap-step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Fork and Clone the Repository</div>
+          <div class="step-desc">Go to the project on GitHub, click the <strong>Fork</strong> button in the top right to get your own copy, then clone it to your machine:</div>
+          <div class="code-box">
+            <code id="roadmap-clone-code"></code>
+            <button id="copy-clone-btn" class="copy-btn">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Create a Dedicated Topic Branch</div>
+          <div class="step-desc">Never commit directly to the default branch. Keep your work isolated:</div>
+          <div class="code-box">
+            <code id="roadmap-branch-code"></code>
+            <button id="copy-branch-btn" class="copy-btn">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Make Your Changes & Test</div>
+          <div class="step-desc">Inspect the files related to this issue. Make your changes cleanly and run the project's automated test suite (e.g. <code>npm test</code>, <code>pytest</code>, or <code>go test</code>).</div>
+        </div>
+      </div>
+
+      <div class="roadmap-step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Open Your Pull Request</div>
+          <div class="step-desc">Push your branch to GitHub and click "Compare & pull request". In your PR description, include this magic phrase so GitHub automatically links and closes the issue:</div>
+          <div class="code-box">
+            <code id="roadmap-pr-keywords"></code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUALITY GATE AUDIT MODAL -->
+  <div id="quality-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="quality-title">
+    <div class="modal">
+      <button id="quality-modal-close" class="modal-close" aria-label="Close modal">&times;</button>
+      <h2 id="quality-title" class="modal-title">Quality Filter Audit</h2>
+      <p class="modal-sub">FirstPatch discards issues that waste beginners' time. Here are examples of issues filtered out by our readiness engine:</p>
+
+      <div id="rejected-items-list"></div>
+    </div>
+  </div>
+
+  <!-- SETTINGS MODAL (GITHUB PAT) -->
+  <div id="settings-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal">
+      <button id="settings-modal-close" class="modal-close" aria-label="Close modal">&times;</button>
+      <h2 id="settings-title" class="modal-title">GitHub API Settings</h2>
+      <p class="modal-sub">FirstPatch works out-of-the-box with GitHub's public API. Optionally provide a GitHub Personal Access Token (classic or fine-grained) to increase your rate limit from 60 to 5,000 requests/hour.</p>
+
+      <label class="field-label" for="github-pat-input">Personal Access Token (optional)</label>
+      <input
+        id="github-pat-input"
+        class="text-input"
+        type="password"
+        placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+      />
+      <p id="token-status-note" class="field-hint" style="margin-top:8px;"></p>
+
+      <button id="button-save-token" class="search-button" type="button" style="margin-top:16px;">
+        Save Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="sample-issues.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
